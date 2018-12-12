@@ -8,62 +8,55 @@ import android.databinding.ViewDataBinding;
 
 public abstract class BasicLifecycleObserver implements LifecycleObserver {
 
-    private BasicActivity activity;
-    private ViewDataBinding binding;
-    private Lifecycle lifecycle;
-
     public BasicLifecycleObserver(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle) {
-        this.activity = activity;
-        this.binding = binding;
-        this.lifecycle = lifecycle;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
-        create(activity, binding, lifecycle);
+        create();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
-        start(activity, binding, lifecycle);
+        start();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     public void onResume() {
-        resume(activity, binding, lifecycle);
+        resume();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     public void onPause() {
-        pause(activity, binding, lifecycle);
+        pause();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onStop() {
-        stop(activity, binding, lifecycle);
+        stop();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
-        destroy(activity, binding, lifecycle);
+        destroy();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
     public void onAny() {
-        any(activity, binding, lifecycle);
+        any();
     }
 
-    public abstract void create(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void create();
 
-    public abstract void start(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void start();
 
-    public abstract void resume(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void resume();
 
-    public abstract void pause(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void pause();
 
-    public abstract void stop(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void stop();
 
-    public abstract void destroy(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void destroy();
 
-    public abstract void any(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle);
+    public abstract void any();
 }
