@@ -7,4 +7,5 @@ public class TestUtil {
     }
 
     public native static String stringFromJNI();
+
 }

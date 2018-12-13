@@ -15,6 +15,7 @@ import com.pai.bai.basic.BasicLifecycleObserver;
 import com.pai.bai.databinding.ActivityMainBinding;
 import com.pai.bai.fragment.Camera2BasicFragment;
 import com.pai.bai.util.TestUtil;
+import com.pai.bai.util.TestUtils;
 import com.pai.bai.util.UIUtil;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -40,7 +41,7 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
         //设置全屏
         ScreenUtils.setFullScreen(activity);
 
-        binding.tvTest.setText(TestUtil.stringFromJNI());
+        binding.tvTest.setText(TestUtils.stringff());
 //        //初始化 open cv
 //        if (!OpenCVLoader.initDebug()) {
 //            ToastUtils.showLong("OpenCV library not found!");
