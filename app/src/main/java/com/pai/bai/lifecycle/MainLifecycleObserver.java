@@ -12,7 +12,9 @@ import com.pai.bai.BasicApp;
 import com.pai.bai.R;
 import com.pai.bai.basic.BasicActivity;
 import com.pai.bai.basic.BasicLifecycleObserver;
+import com.pai.bai.databinding.ActivityMainBinding;
 import com.pai.bai.fragment.Camera2BasicFragment;
+import com.pai.bai.util.TestUtil;
 import com.pai.bai.util.UIUtil;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -23,13 +25,13 @@ import org.opencv.android.OpenCVLoader;
 public class MainLifecycleObserver extends BasicLifecycleObserver {
 
     private BasicActivity activity;
-    private ViewDataBinding binding;
+    private ActivityMainBinding binding;
     private Lifecycle lifecycle;
 
     public MainLifecycleObserver(BasicActivity activity, ViewDataBinding binding, Lifecycle lifecycle) {
         super(activity, binding, lifecycle);
         this.activity = activity;
-        this.binding = binding;
+        this.binding = (ActivityMainBinding) binding;
         this.lifecycle = lifecycle;
     }
 
@@ -38,13 +40,14 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
         //设置全屏
         ScreenUtils.setFullScreen(activity);
 
-        //初始化 open cv
-        if (!OpenCVLoader.initDebug()) {
-            ToastUtils.showLong("OpenCV library not found!");
-        } else {
-            ToastUtils.showLong("OpenCV library found inside package. Using it!");
-            mBaseLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
-        }
+        binding.tvTest.setText(TestUtil.stringFromJNI());
+//        //初始化 open cv
+//        if (!OpenCVLoader.initDebug()) {
+//            ToastUtils.showLong("OpenCV library not found!");
+//        } else {
+//            ToastUtils.showLong("OpenCV library found inside package. Using it!");
+//            mBaseLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+//        }
     }
 
     @Override
