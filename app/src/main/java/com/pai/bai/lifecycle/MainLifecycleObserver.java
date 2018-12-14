@@ -41,7 +41,6 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
         //设置全屏
         ScreenUtils.setFullScreen(activity);
 
-        binding.tvTest.setText(TestUtils.stringff());
 //        //初始化 open cv
 //        if (!OpenCVLoader.initDebug()) {
 //            ToastUtils.showLong("OpenCV library not found!");
@@ -49,6 +48,8 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
 //            ToastUtils.showLong("OpenCV library found inside package. Using it!");
 //            mBaseLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
 //        }
+
+        requestPermission();
     }
 
     @Override
@@ -86,26 +87,7 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
         public void onManagerConnected(int status) {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
-                    //请求权限
-                    if (!PermissionUtils.isGranted(Manifest.permission.CAMERA)) {
-                        PermissionUtils.permission(Manifest.permission.CAMERA)
-                                .callback(new PermissionUtils.SimpleCallback() {
-                                    @Override
-                                    public void onGranted() {
-                                        activity.getSupportFragmentManager().beginTransaction()
-                                                .replace(R.id.fl_preview_context, new Camera2BasicFragment()).commit();
-                                    }
-
-                                    @Override
-                                    public void onDenied() {
-                                        ToastUtils.showLong(UIUtil.getString(R.string.permission_denied_hint));
-                                    }
-                                }).request();
-
-                    } else {
-                        activity.getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fl_preview_context, new Camera2BasicFragment()).commit();
-                    }
+                    requestPermission();
                     break;
                 default:
                     super.onManagerConnected(status);
@@ -113,4 +95,27 @@ public class MainLifecycleObserver extends BasicLifecycleObserver {
             }
         }
     };
+
+    private void requestPermission(){
+        //请求权限
+        if (!PermissionUtils.isGranted(Manifest.permission.CAMERA)) {
+            PermissionUtils.permission(Manifest.permission.CAMERA)
+                    .callback(new PermissionUtils.SimpleCallback() {
+                        @Override
+                        public void onGranted() {
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fl_preview_context, new Camera2BasicFragment()).commit();
+                        }
+
+                        @Override
+                        public void onDenied() {
+                            ToastUtils.showLong(UIUtil.getString(R.string.permission_denied_hint));
+                        }
+                    }).request();
+
+        } else {
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fl_preview_context, new Camera2BasicFragment()).commit();
+        }
+    }
 }

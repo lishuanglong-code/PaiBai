@@ -6,5 +6,5 @@ public class TestUtils {
         System.loadLibrary("add-lib");
     }
 
-    public native static String stringff();
+    public native static String add();
 }
